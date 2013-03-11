@@ -6,6 +6,7 @@ py2exe_options = {
     "compressed": True,
     "optimize": 2,
     "bundle_files": 1,
+    "excludes": ['django']
 }
 
 setup(name="Tweets Cleaner",
