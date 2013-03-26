@@ -60,11 +60,13 @@ def delete_tweets(tw, reader, timestamp):
         try:
             status = tw.destroy_status(int(row['tweet_id']))
         except TweepError as e:
-            print(u'APIエラーが発生しました。60秒後にリトライします。')
-            time.sleep(60)
-            print(u'ステータス id: %s, text: %s を削除します。' %(row['tweet_id'].decode('utf8'), row['text'].decode('utf8').replace('\n', '')))
-            status = tw.destroy_status(int(row['tweet_id']))
-
+            if e.response.msg.get('status') == '404 Not Found':
+                print(u'すでにそのステータスは存在しないためスキップします。')
+            else:
+                print(u'APIエラーが発生しました。60秒後にリトライします。')
+                time.sleep(60)
+                print(u'ステータス id: %s, text: %s を削除します。' %(row['tweet_id'].decode('utf8'), row['text'].decode('utf8').replace('\n', '')))
+                status = tw.destroy_status(int(row['tweet_id']))
 
 def main():
     try:
