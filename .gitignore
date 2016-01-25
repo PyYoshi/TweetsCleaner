@@ -32,3 +32,7 @@ nosetests.xml
 .idea/
 
 .credentials.pickle
+*.csv
+.python-version
+build/
+*.spec
