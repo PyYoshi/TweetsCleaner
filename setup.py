@@ -1,26 +1,13 @@
-# coding:utf8
 from distutils.core import setup
-import py2exe
+from pip.req import parse_requirements
 
-py2exe_options = {
-    "compressed": True,
-    "optimize": 2,
-    "bundle_files": 1,
-    "excludes": ['django']
-}
+requirements = parse_requirements("requirements.txt")
 
-setup(name="Tweets Cleaner",
-      version='0.1',
-      description="",
-      license='MIT',
-      author='PyYoshi',
-      zip_safe = True,
-      install_requires=[
-          'tweepy',
-      ],
-      options = {"py2exe": py2exe_options},
-      console = [
-          {"script" : "rm_tweets.py"}
-      ],
-      zipfile = None
+setup(
+    name="Tweets Cleaner",
+    version='0.2',
+    description="",
+    license='MIT',
+    author='PyYoshi',
+    install_requires=[str(r.req) for r in requirements]
 )
